@@ -8,7 +8,7 @@ services:
             - NB_SETUP_KEY=965A05C7-D37F-4173-BA8D-1CA4C54989B9
         volumes:
             - netbird-client:/var/lib/netbird
-        image: netbirdio/netbird:latestdocker
+        image: netbirdio/netbird:latest
         command: run -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro --restart
             always --log-opt max-size=1g nginx
 volumes:
