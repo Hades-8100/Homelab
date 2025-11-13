@@ -1,0 +1,25 @@
+# named volume 'netbird-client' is marked as "external" (used by service 'netbird'), so either remove "external" from volume definition or it needs to be created using: docker volume create netbird-client
+name: Netbird
+services:
+    netbird:
+        cap_add:
+            - NET_ADMIN
+        environment:
+            - NB_SETUP_KEY=965A05C7-D37F-4173-BA8D-1CA4C54989B9
+        volumes:
+            - netbird-client:/var/lib/netbird
+        image: netbirdio/netbird:latestdocker
+        command: run -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro --restart
+            always --log-opt max-size=1g nginx
+volumes:
+    netbird-client:
+        external: true
+        name: netbird-client
+
+
+
+#docker run --rm -d \
+# --cap-add=NET_ADMIN \
+# -e NB_SETUP_KEY=965A05C7-D37F-4173-BA8D-1CA4C54989B9 \
+# -v netbird-client:/var/lib/netbird \
+# netbirdio/netbird:latest
